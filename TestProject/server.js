@@ -1,15 +1,12 @@
-//Install express server
 const express = require('express');
 const path = require('path');
 
-const app = express();
+const ngApp = express();
 
-// Serve only the static files form the dist directory
-app.use(express.static('./dist/TestProject'));
+ngApp.use(express.static('./dist/TestProject'));
 
-app.get('/*', (req, res) =>
-    res.sendFile('index.html', {root: 'dist/TestProject/'}),
-);
+ngApp.get('/*', function (request, response) {
+    response.sendFile(path.join(__dirname, '/dist/TestProject/index.html'));
+});
 
-// Start the app by listening on the default Heroku port
-app.listen(process.env.PORT || 8400);
+ngApp.listen(process.env.PORT || 8080);
